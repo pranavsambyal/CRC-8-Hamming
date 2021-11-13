@@ -80,10 +80,102 @@ public class Main {
 
     private static void hammingCode() {
         System.out.print(ANSI_BLUE+"Simulating 7-Bit Hamming Code error detection and correction"+ANSI_RESET+"\nEnter Dataword->");
-        String[] dataWordTokenized = getDataWord(1);
-        System.out.println(Arrays.toString(dataWordTokenized) + "\nEnter number of Hops the message will travel");
-        int hops = input.nextInt();
+        String[] DataWords = getDataWord(2);
+        for (String dataWord : DataWords) {
+            System.out.println("Dataword:"+dataWord);
+            senderCode(dataWord);
+        }
+
     }
+
+    private static void senderCode(String dataword) {
+
+        int[] codeword = new int[8];
+        codeword[3] = (int) dataword.charAt(3) - 48;
+        codeword[5] = (int) dataword.charAt(2) - 48;
+        codeword[6] = (int) dataword.charAt(1) - 48;
+        codeword[7] = (int) dataword.charAt(0) - 48;
+        if ((codeword[3] + codeword[5] + codeword[7]) % 2 == 0) {
+            codeword[1] = 0;
+        } else {
+            codeword[1] = 1;
+        }
+        if ((codeword[3] + codeword[6] + codeword[7]) % 2 == 0) {
+            codeword[2] = 0;
+        } else {
+            codeword[2] = 1;
+        }
+        if ((codeword[5] + codeword[6] + codeword[7]) % 2 == 0) {
+            codeword[4] = 0;
+        } else {
+            codeword[4] = 1;
+        }
+
+        System.out.print("Transmitted CodeWord: ");
+        for (int i = 7; i >0; i--) {
+            System.out.print(codeword[i]);
+        }
+        System.out.println();
+        System.out.println("Enter the probability of an error to occur");
+        double p = input.nextFloat();
+
+        double randProb = Math.random();
+
+        int randBitPos = 0;
+        while (randBitPos < 1 || randBitPos > 7) {
+            randBitPos = (int) Math.ceil(Math.random() * 10);
+
+        }
+
+        if (randProb <= p) {
+            if (codeword[randBitPos] == 1) {
+                codeword[randBitPos] = 0;
+            } else {
+                codeword[randBitPos] = 1;
+            }
+        }
+        System.out.print("Received CodeWord:    ");
+        for (int i = 7; i > 0; i--) {
+            System.out.print(codeword[i]);
+        }
+        System.out.println();
+
+        String parityCode = "";
+        if ((codeword[1] + codeword[3] + codeword[5] + codeword[7]) % 2 == 0) {
+            parityCode += "0";
+        } else {
+            parityCode += "1";
+        }
+        if ((codeword[2] + codeword[3] + codeword[6] + codeword[7]) % 2 == 0) {
+            parityCode = "0" + parityCode;
+        } else {
+            parityCode = "1" + parityCode;
+        }
+        if ((codeword[4] + codeword[5] + codeword[6] + codeword[7]) % 2 == 0) {
+            parityCode = "0" + parityCode;
+        } else {
+            parityCode = "1" + parityCode;
+        }
+
+        int decimalValue = Integer.parseInt(parityCode, 2);
+        if (decimalValue == 0) {
+            System.out.println("No error found");
+        } else {
+            System.out.println("The error is found at position " + decimalValue);
+            if (codeword[decimalValue] == 1) {
+                codeword[decimalValue] = 0;
+            } else {
+                codeword[decimalValue] = 1;
+            }
+            System.out.print("The corrected codeword is ");
+            for (int i = 7; i > 0; i--) {
+                System.out.print(codeword[i]);
+            }
+            System.out.println();
+        }
+
+    }
+
 
     private static String[] getDataWord(int c) {
         String temp = input.next();
@@ -110,27 +202,21 @@ public class Main {
                 }
             }
             return ret;
-        } else if (c == 1) {
-            int len;
-            int start = 0;
-            if (temp.length() % 4 != 0) {
-                len = (temp.length() / 4) + 1;
-            } else {
-                len = (temp.length() / 4);
-            }
+        }  if (c == 2) {
+            String data = input.next();
+            int len = (int) Math.ceil(((double) data.length()) / 4);
             String[] ret = new String[len];
-            StringBuilder j = new StringBuilder();
-            for (int i = 0; i < (len * 4); i++) {
-                if (i < temp.length()) {
-                    j.append(temp.charAt(i));
-                } else {
-                    j.append(0);
+            int j = 0;
+            for (int i = 0; i + 4 <= data.length(); i = i + 4) {
+                ret[j] = data.substring(i, i + 4);
+                j++;
+            }
+            if (data.length() % 4 != 0) {
+                String bits = data.substring(((len - 1) * 4)-1);
+                for (int i = bits.length(); i < 4; i++) {
+                    bits +="0";
                 }
-                if (((i + 1) % 4) == 0) {
-                    ret[start] = j.toString();
-                    j = new StringBuilder();
-                    start++;
-                }
+                ret[j] = bits;
             }
             return ret;
         }
