@@ -80,9 +80,9 @@ public class Main {
 
     private static void hammingCode() {
         System.out.print(ANSI_BLUE+"Simulating 7-Bit Hamming Code error detection and correction"+ANSI_RESET+"\nEnter Dataword->");
-        String[] DataWords = getDataWord(2);
+        String[] DataWords = getDataWord(1);
         for (String dataWord : DataWords) {
-            System.out.println("Dataword:"+dataWord);
+            System.out.println("\nDataword:"+dataWord);
             senderCode(dataWord);
         }
 
@@ -111,12 +111,12 @@ public class Main {
             codeword[4] = 1;
         }
 
-        System.out.print("Transmitted CodeWord: ");
+        System.out.print(ANSI_PURPLE+"Transmitted CodeWord: ");
         for (int i = 7; i >0; i--) {
             System.out.print(codeword[i]);
         }
-        System.out.println();
-        System.out.println("Enter the probability of an error to occur");
+        System.out.println(ANSI_RESET);
+        System.out.println(ANSI_YELLOW+"Enter the probability of an error to occur"+ANSI_RESET);
         double p = input.nextFloat();
 
         double randProb = Math.random();
@@ -134,11 +134,11 @@ public class Main {
                 codeword[randBitPos] = 1;
             }
         }
-        System.out.print("Received CodeWord:    ");
+        System.out.print(ANSI_CYAN+"Received CodeWord:    ");
         for (int i = 7; i > 0; i--) {
             System.out.print(codeword[i]);
         }
-        System.out.println();
+        System.out.println(ANSI_RESET);
 
         String parityCode = "";
         if ((codeword[1] + codeword[3] + codeword[5] + codeword[7]) % 2 == 0) {
@@ -159,19 +159,19 @@ public class Main {
 
         int decimalValue = Integer.parseInt(parityCode, 2);
         if (decimalValue == 0) {
-            System.out.println("No error found");
+            System.out.println(ANSI_GREEN+"No error found"+ANSI_RESET);
         } else {
-            System.out.println("The error is found at position " + decimalValue);
+            System.out.println(ANSI_RED+"The error is found at position " + decimalValue+ANSI_RESET);
             if (codeword[decimalValue] == 1) {
                 codeword[decimalValue] = 0;
             } else {
                 codeword[decimalValue] = 1;
             }
-            System.out.print("The corrected codeword is ");
+            System.out.print(ANSI_BLUE+"The corrected codeword is ");
             for (int i = 7; i > 0; i--) {
                 System.out.print(codeword[i]);
             }
-            System.out.println();
+            System.out.println(ANSI_RESET);
         }
 
     }
@@ -202,19 +202,18 @@ public class Main {
                 }
             }
             return ret;
-        }  if (c == 2) {
-            String data = input.next();
-            int len = (int) Math.ceil(((double) data.length()) / 4);
+        }  else if (c == 1) {
+            int len = (int) Math.ceil(((double) temp.length()) / 4);
             String[] ret = new String[len];
             int j = 0;
-            for (int i = 0; i + 4 <= data.length(); i = i + 4) {
-                ret[j] = data.substring(i, i + 4);
+            for (int i = 0; i + 4 <= temp.length(); i = i + 4) {
+                ret[j] = temp.substring(i, i + 4);
                 j++;
             }
-            if (data.length() % 4 != 0) {
-                String bits = data.substring(((len - 1) * 4)-1);
+            if (temp.length() % 4 != 0) {
+                String bits = temp.substring(((len - 1) * 4));
                 for (int i = bits.length(); i < 4; i++) {
-                    bits +="0";
+                    bits =bits+"0";
                 }
                 ret[j] = bits;
             }
@@ -306,7 +305,7 @@ public class Main {
         for (char c : crs) {
             ret.append(c);
         }
-        System.out.println(ANSI_PURPLE+"Transmitted CodeWord: " + str);
+        System.out.println(ANSI_PURPLE+"Transmitted CodeWord: " + str+ANSI_RESET);
         return ret.toString();
     }
 
@@ -376,6 +375,6 @@ public class Main {
                 }
             }
         }
-        System.out.println("Bye, Exiting "+"\uD83D\uDC4B");
+        System.out.println(ANSI_CYAN+"Bye, Exiting "+"\uD83D\uDC4B"+ANSI_RESET);
     }
 }
