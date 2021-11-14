@@ -1,5 +1,4 @@
 # CRC-8 & 7-Bit Hamming Code
-# [Report](Report.pdf)
 # [Code](src/com/pranav/nits/Main.java)
 ## Objective 
 - Simulating realistic error detection and correction by implementing
@@ -18,4 +17,5 @@
 - (https://www.geeksforgeeks.org/)
 - (https://github.com/)
 
+# [Project Report](Report.pdf)
   
