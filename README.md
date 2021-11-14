@@ -1,5 +1,8 @@
 # CRC-8 & 7-Bit Hamming Code
 [Code](src/com/pranav/nits/Main.java)
+## Objective 
+- Simulating realistic error detection and correction by implementing
+  Cyclic Redundancy Check (CRC) and 7-bit Hamming code using binary symmetric channel and random error generation.
 ## CRC
 - Cyclic Redundancy Check.
 - It is a common code for error detection in raw data due to accidental changes.
