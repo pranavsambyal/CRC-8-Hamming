@@ -12,9 +12,9 @@
 ## Pre-requisite Knowledge
 - Basic knowledge of Java Language and basic logic of CRC and Hamming code.
 ## References
-( https://docs.oracle.com/en/java/)
-(https://www.javatpoint.com/)
-(https://www.geeksforgeeks.org/)
-(https://github.com/)
+- ( https://docs.oracle.com/en/java/)
+- (https://www.javatpoint.com/)
+- (https://www.geeksforgeeks.org/)
+- (https://github.com/)
 
   
