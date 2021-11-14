@@ -1,6 +1,6 @@
 # CRC-8 & 7-Bit Hamming Code
-[Report](Report.pdf)
-[Code](src/com/pranav/nits/Main.java)
+# [Report](Report.pdf)
+# [Code](src/com/pranav/nits/Main.java)
 ## Objective 
 - Simulating realistic error detection and correction by implementing
   Cyclic Redundancy Check (CRC) and 7-bit Hamming code using binary symmetric channel and random error generation.
